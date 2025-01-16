@@ -1,18 +1,18 @@
 public class User {
-    private String userId;
+    private String userID;
     private String password;
     private String email;
     private String userType;
 
-    public User(String userId, String password, String email, String userType) {
-        this.userId = userId;
+    public User(String userID, String password, String email, String userType) {
+        this.userID = userID;
         this.password = password;
         this.email = email;
         this.userType = userType;
     }
 
     public String getUserId() {
-        return userId;
+        return userID;
     }
 
     public String getPassword() {
@@ -26,5 +26,4 @@ public class User {
     public String getUserType() {
         return userType;
     }
-
 }
