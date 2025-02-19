@@ -1,31 +1,25 @@
 package BuilderPattern;
 
-import javax.crypto.Cipher;
-import javax.crypto.KeyGenerator;
-import javax.crypto.SecretKey;
-import javax.crypto.spec.SecretKeySpec;
-import java.util.Base64;
+import javax.crypto.*;
+import java.io.*;
+import java.util.*;
 
 public class AES256Example {
-
-    // Tạo key co dinh theo chuan AES-256 (bit)
+    static Scanner sc = new Scanner(System.in);
+    
     private static SecretKey generateKey() throws Exception {
         KeyGenerator keyGen = KeyGenerator.getInstance("AES");
-        keyGen.init(256);  
+        keyGen.init(256);
         return keyGen.generateKey();
     }
 
-    // Ma hoa chuoi bang AES, tra ve chuoi ma hoa bieu dien duoi dinh dang Base64 (De doc)
-    // Truyen vao chuoi + key
     public static String encrypt(String plainText, SecretKey key) throws Exception {
         Cipher cipher = Cipher.getInstance("AES");
         cipher.init(Cipher.ENCRYPT_MODE, key);
         byte[] encryptedBytes = cipher.doFinal(plainText.getBytes());
-        return Base64.getEncoder().encodeToString(encryptedBytes); 
+        return Base64.getEncoder().encodeToString(encryptedBytes);
     }
 
-    // Giai ma de Test thu xem ma hoa dung khong\
-    // Truyen vao chuoi da ma hoa (Base64, tra ve chuoi ban dau)
     public static String decrypt(String encryptedText, SecretKey key) throws Exception {
         Cipher cipher = Cipher.getInstance("AES");
         cipher.init(Cipher.DECRYPT_MODE, key);
@@ -33,22 +27,62 @@ public class AES256Example {
         return new String(decryptedBytes);
     }
 
+    public static String readFile(String filePath) {
+        StringBuilder content = new StringBuilder();
+        try (Scanner scanner = new Scanner(new File(filePath))) {
+            while (scanner.hasNextLine()) {
+                content.append(scanner.nextLine()).append("\n");
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Error: File not found!");
+            return null;
+        }
+        return content.toString().trim();
+    }
+
+    public static void writeFile(String filePath, String data) {
+        try (FileWriter writer = new FileWriter(filePath)) {
+            writer.write(data);
+        } catch (IOException e) {
+            System.out.println("Error writing file: " + e.getMessage());
+        }
+    }
+
     public static void main(String[] args) {
         try {
-            // Tao Khoa bi mat
             SecretKey key = generateKey();
 
-            // Dua vao mot chuoi ban dau
-            String message = "A bottle of water";
-            String encryptedMessage = encrypt(message, key);
-            System.out.println("Chuoi sau khi ma hoa: " + encryptedMessage);
+            System.out.print("Enter the file path to encrypt: ");
+            String contractFilePath = sc.nextLine();
 
-            // Giai ma de test thu ma hoa ban dau co dung khong (Base64)
-            String decryptedMessage = decrypt(encryptedMessage, key);
-            System.out.println("Chuoi goc: " + decryptedMessage);
+            String contractData = readFile(contractFilePath);
+            if (contractData == null) {
+                System.out.println("No contract data found!");
+                return;
+            }
+
+            String encryptedData = encrypt(contractData, key);
+            System.out.println("Encrypted Contract: " + encryptedData);
+
+            String encryptedFilePath = contractFilePath + "_encrypted.txt";
+            writeFile(encryptedFilePath, encryptedData);
+            System.out.println("Encrypted contract saved to: " + encryptedFilePath);
+
+            System.out.print("Do you want to decrypt the file? (yes/no): ");
+            String choice = sc.nextLine().trim().toLowerCase();
+
+            if (choice.equals("yes")) {
+                String readEncryptedData = readFile(encryptedFilePath);
+                if (readEncryptedData != null) {
+                    String decryptedData = decrypt(readEncryptedData, key);
+                    System.out.println("Decrypted Contract: \n" + decryptedData);
+                }
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            sc.close();
         }
     }
 }
