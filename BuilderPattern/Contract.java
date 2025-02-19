@@ -1,13 +1,15 @@
 package BuilderPattern;
 
-public interface Contract {
-    public String buildContractID(String contractID);
+import java.io.*;
+import java.util.*;
 
-    public String buildPropertyID(String propertyID);
-
-    public String buildTenantID(String tenantID);
-
-    public int buildRentAmount(int rentAmount);
-
-    public Contract signContract();
+interface Contract {
+    String buildContractID(String contractID);
+    String buildPropertyID(String propertyID);
+    String buildTenantID(String tenantID);
+    int buildRentAmount(int rentAmount);
+    Contract signContract();
+    String getContractType();
 }
+ 
+

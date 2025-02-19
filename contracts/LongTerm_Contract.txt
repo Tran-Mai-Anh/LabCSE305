@@ -1,0 +1,1 @@
+LongTermContract{contractID=1, propertyID=21, tenantID=fwe2, rentAmount=231}

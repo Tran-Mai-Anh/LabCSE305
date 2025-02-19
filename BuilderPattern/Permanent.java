@@ -1,6 +1,6 @@
 package BuilderPattern;
 
-public class Permanent {
+public class Permanent implements Contract {
     private String contractID;
     private int rentAmount;
     private String tenantID;
@@ -42,4 +42,18 @@ public class Permanent {
         return longTermContract;
     }
 
+    @Override
+    public String toString() {
+        return "PermanentContract{" +
+                "contractID=" + contractID +
+                ", propertyID=" + propertyID +
+                ", tenantID=" + tenantID +
+                ", rentAmount=" + rentAmount +
+                '}';
+    }
+
+    @Override
+    public String getContractType() {
+        return "Permanent";
+    }
 }

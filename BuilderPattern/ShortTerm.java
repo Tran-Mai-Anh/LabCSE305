@@ -42,4 +42,18 @@ public class ShortTerm implements Contract {
         return shortTermContract;
     }
 
+    @Override
+    public String toString() {
+        return "ShortTermContract{" +
+                "contractID=" + contractID +
+                ", propertyID=" + propertyID +
+                ", tenantID=" + tenantID +
+                ", rentAmount=" + rentAmount +
+                '}';
+    }
+
+    @Override
+    public String getContractType() {
+        return "ShortTerm";
+    }
 }

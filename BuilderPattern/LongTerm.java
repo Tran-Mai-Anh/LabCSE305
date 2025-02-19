@@ -41,4 +41,19 @@ public class LongTerm implements Contract {
         Contract longTermContract = new LongTerm(this.contractID, this.propertyID, this.tenantID, this.rentAmount);
         return longTermContract;
     }
+
+    @Override
+    public String toString() {
+        return "LongTermContract{" +
+                "contractID=" + contractID +
+                ", propertyID=" + propertyID +
+                ", tenantID=" + tenantID +
+                ", rentAmount=" + rentAmount +
+                '}';
+    }
+
+    @Override
+    public String getContractType() {
+        return "LongTerm";
+    }
 }
