@@ -4,7 +4,8 @@ import java.io.*;
 import java.util.*;
 
 public class Client {
-    static Scanner sc=new Scanner(System.in);
+    static Scanner sc = new Scanner(System.in);
+
     public static void main(String[] args) {
         System.out.print("Enter Contract Type (Permanent, LongTerm, ShortTerm): ");
         String contractType = sc.nextLine();
@@ -57,7 +58,7 @@ public class Client {
         try {
             File directory = new File("contracts");
             if (!directory.exists()) {
-                directory.mkdir(); 
+                directory.mkdir();
             }
 
             String fileName = "contracts/" + contract.getContractType() + "_Contract.txt";
