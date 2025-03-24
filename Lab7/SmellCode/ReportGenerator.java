@@ -65,7 +65,7 @@ class FinancialReport {
             property.printPropertyDetails();
             System.out.println(property.isPremium() ? "This is a premium property." : "This is a standard property.");
             System.out.println("Yearly Rent: $" + property.getYearlyRent());
-            System.out.println("--------------------");
+            System.out.println("----------------------------");
         });
 
         System.out.println("Total Rent Amount: $" + calculateTotalRent());
