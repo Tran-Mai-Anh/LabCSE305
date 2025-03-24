@@ -39,7 +39,7 @@ class Message {
     }
 
     public String formatMessage() {
-        return sender + " -> " + recipient + ": " + content;
+        return sender + " - " + recipient + ": " + content;
     }
 }
 
